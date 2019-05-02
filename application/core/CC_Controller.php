@@ -27,7 +27,8 @@ class CC_Controller extends CI_Controller
         // Define the header data.
         $header = [
             'section'   => $this->router->fetch_class(),
-            'page'      => $this->router->fetch_method()
+            'page'      => $this->router->fetch_method(),
+            'nav'       => $this->nav_items()
         ];
 
         $this->load->view('template/header');
@@ -36,5 +37,25 @@ class CC_Controller extends CI_Controller
 		$this->load->view($page, $params);
 
         $this->load->view('template/footer');
+    }
+
+    // Populates the navigation side bar.
+    private function nav_items()
+    {
+        $nav = [];
+
+        $nav [] = [
+            'title'     => 'Home',
+            'icon'      => 'fas fa-home',
+            'url'       => '/'
+        ];
+
+        $nav [] = [
+            'title'     => 'Add Film',
+            'icon'      => 'fas fa-plus',
+            'url'       => 'create'
+        ];
+
+        return $nav;
     }
 }

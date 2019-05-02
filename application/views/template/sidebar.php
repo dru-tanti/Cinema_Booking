@@ -9,19 +9,7 @@
 
     <nav id="sidebar-nav">
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a href="<?php echo site_url('/'); ?>" class="nav-link">
-                    <i class="icon fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="<?php echo site_url('article/create'); ?>" class="nav-link">
-                    <i class="icon fas fa-newspaper"></i>
-                    <span>New Article</span>
-                </a>
-            </li>
+            <?php echo build_nav($nav); ?>
 
             <!-- <li class="nav-item">
                 <a href="#" class="nav-link active">
