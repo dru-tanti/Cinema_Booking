@@ -51,7 +51,6 @@ class Film_model extends CI_Model
         }
     }
 
-
     // Retrieve the list of categories as an array.
     public function get_categories()
     {
@@ -86,7 +85,24 @@ class Film_model extends CI_Model
     // Retrieves all the films in the database.
     public function get_films()
     {
-        return $this->db->select('title')
+        return $this->db->select('*')
+                        ->get('tbl_films')
+                        ->result_array();
+    }
+
+    public function now_showing()
+    {
+        return $this->db->select('*')
+                        ->where('release <', time())
+                        ->get('tbl_films')
+                        ->result_array();
+    }
+
+    // Retrieves films in the database that have a release date set in the future.
+    public function coming_soon()
+    {
+        return $this->db->select('*')
+                        ->where('release >', time())
                         ->get('tbl_films')
                         ->result_array();
     }

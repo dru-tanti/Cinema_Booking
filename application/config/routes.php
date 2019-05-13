@@ -49,8 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'film';
-// $route['create'] = 'film/create';
+$route['default_controller'] = 'home';
+
+$route['admin'] = 'film';
 
 $route['register'] = 'system/register';
 $route['register/submit'] = 'system/do_register';
