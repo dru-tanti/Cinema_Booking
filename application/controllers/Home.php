@@ -38,6 +38,8 @@ class Home extends CC_Controller
         //if ($to_array) return $files;
         if (count($files) > 0) return $files[0];
         return '';
+
+        var_dump($files);
     }
 
 }

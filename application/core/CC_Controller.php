@@ -14,7 +14,7 @@ class CC_Controller extends CI_Controller
         // will not be available.
         parent::__construct();
 
-        $this->check_login();
+        //$this->check_login();
     }
 
     /*
@@ -34,10 +34,8 @@ class CC_Controller extends CI_Controller
         ];
 
         $this->load->view('template/header');
-        if($this->system->check_permission('BACKEND_ACCESS'))
-        {
-            $this->load->view('template/sidebar', $header);
-        }
+        $this->load->view('template/navbar');
+        //$this->load->view('template/sidebar', $header);
 
 		$this->load->view($page, $params);
 
@@ -132,7 +130,6 @@ class CC_Controller extends CI_Controller
             $nav[] = [
                 'title'         => 'Users',
                 'icon'          => 'fas fa-users',
-                'url'           => '#',
                 'submenu'       => $submenu
             ];
         }
