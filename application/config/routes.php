@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 
 $route['admin'] = 'film';
+$route['cinema'] = 'cinema';
 
 $route['register'] = 'system/register';
 $route['register/submit'] = 'system/do_register';
