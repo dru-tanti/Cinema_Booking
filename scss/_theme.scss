@@ -1,0 +1,21 @@
+// main: style.scss
+$theme: (
+    background: #e2e4e6,
+    borders: #e1e5eb,
+    light: #0e4e97,
+    section: #fff,
+    sidebar: #072959
+);
+
+$nav: (
+    active: #fff,
+    hover: #caceda,
+    icon: #caceda,
+    text: #caceda
+);
+
+$layout: (
+    navbar: 3.5rem,
+    rootSize: 14px,
+    sidebar: 15rem
+);

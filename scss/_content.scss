@@ -1,0 +1,42 @@
+// main: style.scss
+
+#content {
+    padding-left: size($layout, 'sidebar');
+
+    .page-header {
+        h1 {
+            background: linear-gradient(color($theme, 'light'), 80%, #000);
+            color: color($theme, 'section');
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            min-height: size($layout, 'navbar');
+            padding: size($layout, 'rootSize');
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .film-listing{
+        .card {
+            max-height: 356px;
+            width: 100%;
+            .card-img {
+                max-height: 354px;
+                object-fit: cover;
+            }
+            .card-img-overlay {
+                background: linear-gradient(rgba(0, 0, 0, 0.50), 30%, rgba(0, 0, 0, 0.01));
+                font-size: 0.6rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    #content {
+        padding-left: 0;
+    }
+}

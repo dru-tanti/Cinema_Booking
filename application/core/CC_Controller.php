@@ -5,6 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     Core controllers add an extra layer of functionality to CI.
     Functions defined here will be available in all of its children.
 */
+
+// TODO: Have sidebar only appear when user is logged in with necissary permissions.
+
 class CC_Controller extends CI_Controller
 {
     function __construct()
@@ -34,8 +37,14 @@ class CC_Controller extends CI_Controller
         ];
 
         $this->load->view('template/header');
-        //$this->load->view('template/navbar');
+        // if($this->system->confirm_session())
+        // {
         $this->load->view('template/sidebar', $header);
+        // }
+        if($header['section'] == 'home')
+        {
+            $this->load->view('template/navbar');
+        }
 
 		$this->load->view($page, $params);
 
@@ -99,7 +108,7 @@ class CC_Controller extends CI_Controller
         $nav [] = [
             'title'     => 'Home',
             'icon'      => 'fas fa-home',
-            'url'       => '/'
+            'url'       => 'film'
         ];
 
         $nav [] = [
@@ -113,12 +122,19 @@ class CC_Controller extends CI_Controller
             $submenu = [];
 
             $submenu[] = [
+                'title'     => 'View Users',
+                'icon'      => 'fas fa-user',
+                'url'       => 'users'
+            ];
+
+            $submenu[] = [
                 'title'     => 'New User',
                 'icon'      => 'fas fa-user-plus',
                 'url'       => 'users/create'
             ];
 
-            if($this->system->check_permission('ASSIGN_PERMISSIONS'))
+
+            if($this->system->check_permission('ASSIGN_PERMISSION'))
             {
                 $submenu[] = [
                     'title'     => 'Assign Permissions',
@@ -133,6 +149,35 @@ class CC_Controller extends CI_Controller
                 'submenu'       => $submenu
             ];
         }
+
+        if($this->system->check_permission('VIEW_CINEMAS'))
+        {
+            $submenu = [];
+
+            $submenu[] = [
+                'title'             => 'View Cinemas',
+                'icon'              => 'fas fa-eye',
+                'url'               => 'cinema'
+            ];
+
+            if($this->system->check_permission('ADD_CINEMAS'))
+            {
+                $submenu[] = [
+                    'title'             => 'Add Cinemas',
+                    'icon'              => 'fas fa-plus',
+                    'url'             => 'cinema/create'
+                ];
+            }
+
+            $nav[] = [
+                'title'         => 'Cinemas',
+                'icon'          => 'fas fa-video',
+                'submenu'       => $submenu
+            ];
+        }
+
+
+
 
         return $nav;
     }

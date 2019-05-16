@@ -9,8 +9,12 @@ class System_model extends CI_Model
     var $lock_minutes = 5;
 
     // Registers a new user into the system.
-    public function new_user($email, $password, $name, $surname, $role = 8)
+    public function new_user($email, $password, $name, $surname, $roles)
     {
+        if($roles == NULL)
+        {
+            $role = 8;
+        }
         // 1. Generate a salt variable and encode the password.
         $salt = bin2hex($this->encryption->create_key(8));
         $password = password_hash($salt.$password, CRYPT_BLOWFISH);
@@ -23,7 +27,7 @@ class System_model extends CI_Model
             'email'     => $email,
             'password'  => $password,
             'salt'      => $salt,
-            'role_id'   => $role
+            'role_id'   => $roles
         ];
         $this->db->insert('tbl_users', $users);
 
@@ -50,8 +54,6 @@ class System_model extends CI_Model
             $this->db->trans_commit();
             return TRUE;
         }
-
-
     }
 
     // Try to log the user into the system.
@@ -184,5 +186,31 @@ class System_model extends CI_Model
         if ($perm == NULL) return FALSE;
 
         return (($perm['access'] & $role_id) == $role_id);
+    }
+
+    // Retrieves all the roles from the database to be assigned by the admin.
+    public function get_roles()
+    {
+        return $this->db->get('tbl_roles')->result_array();
+    }
+
+    // Retrieves the roles as an array
+    public function get_roles_array()
+    {
+        $results = $this->get_roles();
+        $roles = [];
+
+        foreach ($results as $row) $roles[$row['id']] = $row['role_name'];
+        return $roles;
+    }
+
+    // Retrieves all the users, and their details
+    public function get_users()
+    {
+        return $this->db->select('tbl_users.email, tbl_user_details.name, tbl_user_details.surname, tbl_roles.role_name')
+                        ->join('tbl_user_details', 'tbl_users.id = tbl_user_details.user_id')
+                        ->join('tbl_roles', 'tbl_users.role_id = tbl_roles.id')
+                        ->get('tbl_users')
+                        ->result_array();
     }
 }

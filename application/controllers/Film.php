@@ -69,32 +69,32 @@ class Film extends CC_Controller
 
     public function edit($slug = NULL, $submit = FALSE)
     {
-      // Check if the film exists, and if it does assign to a variable.
-      if(!$film = $this->film_model->get_film($slug))
-      {
+        // Check if the film exists, and if it does assign to a variable.
+        if(!$film = $this->film_model->get_film($slug))
+        {
          show_404();
-      }
+        }
 
-      // Check that the form was sent.
-      if($submit !== FALSE)
-      {
+        // Check that the form was sent.
+        if($submit !== FALSE)
+        {
          return $this->do_edit($film);
-      }
+        }
 
-      // loads the user-agent library to identify platform.
-      $this->load->library(['user_agent' => 'ua']);
+        // loads the user-agent library to identify platform.
+        $this->load->library(['user_agent' => 'ua']);
 
-      $film['text'] = read_file("{$this->text_folder}/{$film['id']}.txt");
-		$film['categories'] = $this->film_model->get_film_categories($film['id']);
-		$film['image'] = $this->_get_image_path($film['id']);
+        $film['text'] = read_file("{$this->text_folder}/{$film['id']}.txt");
+    	$film['categories'] = $this->film_model->get_film_categories($film['id']);
+    	$film['image'] = $this->_get_image_path($film['id']);
 
-		$data = [
-			'film'	     	=> $film,
-			'categories'	=> $this->film_model->get_categories_array(),
-			'platform'		=> strtolower($this->ua->platform())
-		];
+    	$data = [
+    		'film'	     	=> $film,
+    		'categories'	=> $this->film_model->get_categories_array(),
+    		'platform'		=> strtolower($this->ua->platform())
+    	];
 
-		$this->build('film/edit', $data);
+    	$this->build('film/edit', $data);
     }
 
     // Process the creation form.
@@ -130,8 +130,8 @@ class Film extends CC_Controller
         }
 
         // 4. Get the inputs from the form.
-        $title		  = $this->input->post('film-title');
-        $text	     = $this->input->post('film-text');
+        $title		= $this->input->post('film-title');
+        $text	    = $this->input->post('film-text');
         $runtime    = $this->input->post('film-runtime');
         $release    = $this->input->post('film-release');
         $categories = $this->input->post('film-categories') ?: [];

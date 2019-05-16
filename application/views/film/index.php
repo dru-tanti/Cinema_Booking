@@ -3,6 +3,7 @@
 
         <div class="card">
             <div class="card-header border-bottom-0 d-flex">
+                <h4 class="text-center text-md-left"><?php echo ucwords($section); ?> List</h4>
                 <a href="<?php echo site_url('film/create'); ?>" class="ml-auto">New film</a>
             </div>
 

@@ -1,0 +1,44 @@
+// main: style.scss
+
+.navbar {
+    background: linear-gradient(color($theme, 'light'), 70%, #000);
+    border-bottom: 1px solid color($theme, 'borders');
+    min-height: size($layout, 'navbar');
+    padding-left: size($layout, 'sidebar');
+    .nav-container{
+        a {
+            color: color($nav, 'active');
+            display: inline-block;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            position: relative;
+            padding: 15px 20px;
+            &:after{
+                background: none repeat scroll 0 0 transparent;
+                bottom: 0;
+                content: "";
+            	display: block;
+                height: 2px;
+                left: 50%;
+                position: absolute;
+                background: #fff;
+                transition: width 0.3s ease 0s, left 0.3s ease 0s;
+                width: 0;
+            }
+            &:hover:after{
+                width: 100%;
+                left: 0;
+            }
+        }
+    }
+}
+
+.toggle-sidebar {
+    padding: 1rem;
+
+    .icon {
+        color: color($nav, 'icon');
+        font-size: 1.25rem;
+    }
+}

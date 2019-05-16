@@ -2,6 +2,7 @@
 
 class Film_model extends CI_Model
 {
+    // Adds a film to the database.
     public function create_film($title, $runtime, $release, $categories)
     {
         // Create a slug and confirmes that a category has been selected
@@ -51,6 +52,21 @@ class Film_model extends CI_Model
         }
     }
 
+    // Retrieves films in the database that have a release date set in the future.
+    public function coming_soon()
+    {
+        return $this->db->select('*')
+                        ->where('release >', time())
+                        ->get('tbl_films')
+                        ->result_array();
+    }
+
+    // Deletes a film from the database.
+    public function delete_article($slug)
+    {
+        $this->db->delete('tbl_films', ['slug' => $slug]);
+    }
+
     // Retrieve the list of categories as an array.
     public function get_categories()
     {
@@ -82,6 +98,14 @@ class Film_model extends CI_Model
         return $ids;
     }
 
+    // Retrieves a single film from the databse.
+    public function get_film($slug)
+    {
+        return $this->db
+                    ->get_where('tbl_films', ['slug' => $slug])
+                    ->row_array();
+    }
+
     // Retrieves all the films in the database.
     public function get_films()
     {
@@ -98,12 +122,19 @@ class Film_model extends CI_Model
                         ->result_array();
     }
 
-    // Retrieves films in the database that have a release date set in the future.
-    public function coming_soon()
+    public function update_film($id, $title)
     {
-        return $this->db->select('*')
-                        ->where('release >', time())
-                        ->get('tbl_films')
-                        ->result_array();
+        $slug = url_title($title, 'dash', TRUE);
+
+        $this->db->where('id', $id)
+                 ->update('tbl_films', [
+                     'title'    => $title,
+                     'slug'     => $slug
+                 ]);
+
+        // Check if th query worked by checking if any rows were affected.
+        return $this->db->affected_rows() == 1;
     }
+
+
 }

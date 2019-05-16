@@ -101,6 +101,11 @@ class System extends CC_Controller
                 'field'     => 'user-surname',
                 'label'     => 'Surname',
                 'rules'     => 'required|alpha_spaces'
+            ],
+            [
+                'field'     => 'user-role',
+                'label'     => 'Role',
+                'rules'     => ''
             ]
         ]);
 
@@ -115,9 +120,10 @@ class System extends CC_Controller
         $password   = $this->input->post('user-password');
         $name       = $this->input->post('user-name');
         $surname    = $this->input->post('user-surname');
+        $roles      = $this->input->post('user-role');
 
         // 5. Register the user, if it faiils stop here.
-        if (!$this->system->new_user($email, $password, $name, $surname))
+        if (!$this->system->new_user($email, $password, $name, $surname, $role))
         {
             exit("The user could not be registered. Please go back and try again.");
         }

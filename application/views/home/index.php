@@ -5,10 +5,12 @@
                         <h1>Main Content</h1>
                     </div>
 <?php foreach($films as $film): ?>
+
+                <div class="film-listing">
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <img src="<?php echo base_url().'/uploads/films/images/'.$film['id'].".jpg"; ?>" class="card-img" alt="<?php echo $film['title']; ?>">
+                                <img src="<?php echo base_url($film['image']); ?>" class="card-img" alt="<?php echo $film['title']; ?>">
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">
@@ -26,6 +28,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
 <?php endforeach; ?>
                 </main>
                 <aside class="sidebar col-12 col-md-2 d-block m-4">
