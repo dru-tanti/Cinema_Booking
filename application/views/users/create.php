@@ -49,7 +49,7 @@
     <div class="col-12 col-lg-3 mt-3 mt-lg-0">
         <div class="card">
             <div class="card-body">
-                <?php echo form_multiselect(
+                <?php echo form_dropdown(
                     'user-role',
                     $roles,
                     set_value('user-role'),
@@ -59,7 +59,7 @@
                     ]
                 ); ?>
 
-                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                <button type="submit" class="mt-4 btn btn-primary w-100">Submit</button>
             </div>
         </div>
     </div>

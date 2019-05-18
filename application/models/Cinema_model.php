@@ -2,13 +2,14 @@
 
 class Cinema_model extends CI_Model
 {
-   public function create_cinema($name, $capacity)
+   public function create_cinema($name, $capacity, $rows)
    {
       $this->db->trans_start();
 
       $cinema = [
          'name'      => $name,
-         'capacity'  => $capacity
+         'capacity'  => $capacity,
+         'rows'      => $rows
       ];
 
       $this->db->insert('tbl_cinema', $cinema);
@@ -18,7 +19,7 @@ class Cinema_model extends CI_Model
 
       if($this->db->trans_status() === FALSE)
       {
-         $this->db0>trans_rollback();
+         $this->db->trans_rollback();
          return FALSE;
       } else {
          $this->db->trans_commit();

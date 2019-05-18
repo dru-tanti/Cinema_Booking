@@ -12,6 +12,7 @@ class Film extends CC_Controller
     // The class constructer will be needed here.
     function __construct()
     {
+        //$this->check_login();
         parent::__construct();
 
         $this->load->model('film_model');

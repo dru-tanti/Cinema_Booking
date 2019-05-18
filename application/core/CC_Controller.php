@@ -6,8 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     Functions defined here will be available in all of its children.
 */
 
-// TODO: Have sidebar only appear when user is logged in with necissary permissions.
-
 class CC_Controller extends CI_Controller
 {
     function __construct()
@@ -17,7 +15,6 @@ class CC_Controller extends CI_Controller
         // will not be available.
         parent::__construct();
 
-        //$this->check_login();
     }
 
     /*
@@ -37,10 +34,11 @@ class CC_Controller extends CI_Controller
         ];
 
         $this->load->view('template/header');
-        // if($this->system->confirm_session())
-        // {
-        $this->load->view('template/sidebar', $header);
-        // }
+        if($this->system->confirm_session() && $this->system->check_permission('BACKEND_ACCESS'))
+        {
+            $this->load->view('template/sidebar', $header);
+        }
+
         if($header['section'] == 'home')
         {
             $this->load->view('template/navbar');
@@ -51,54 +49,54 @@ class CC_Controller extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    protected function check_login()
-    {
-        // These two functions will retrieve the controller name ad method the user has accessed.
-        $class  = $this->router->fetch_class();
-        $method = $this->router->fetch_method();
-
-        $is_logged = $this->system->confirm_session();
-
-        if ($is_logged)
-        {
-            switch($class)
-            {
-                case 'system':
-                    switch($method)
-                    {
-                        case 'register': case'do_register': case 'login': case 'do_login':
-                        redirect('/');
-                        break;
-                    }
-                    break;
-
-                default:
-                    // If the user doesn't have the permission to view the backend, log them out.
-                    if(!$this->system->check_permission('BACKEND_ACCESS'))
-                    {
-                        $this->session->sess_destroy();
-                        exit("You do not have permission to access this page");
-                    }
-                    break;
-            }
-        } else
-        {
-            switch($class)
-            {
-                case 'system':
-                    switch($method)
-                    {
-                        case 'register': case'do_register': case 'login': case 'do_login':
-                            break;
-                        default:
-                            redirect('login'); break;
-                    }
-                    break;
-                default:
-                    redirect('login'); break;
-            }
-        }
-    }
+    // protected function check_login()
+    // {
+    //     // These two functions will retrieve the controller name ad method the user has accessed.
+    //     $class  = $this->router->fetch_class();
+    //     $method = $this->router->fetch_method();
+    //
+    //     $is_logged = $this->system->confirm_session();
+    //
+    //     if ($is_logged)
+    //     {
+    //         switch($class)
+    //         {
+    //             case 'system':
+    //                 switch($method)
+    //                 {
+    //                     case 'register': case'do_register': case 'login': case 'do_login':
+    //                     redirect('/');
+    //                     break;
+    //                 }
+    //                 break;
+    //
+    //             default:
+    //                 // If the user doesn't have the permission to view the backend, log them out.
+    //                 if(!$this->system->check_permission('BACKEND_ACCESS'))
+    //                 {
+    //                     $this->session->sess_destroy();
+    //                     exit("You do not have permission to access this page");
+    //                 }
+    //                 break;
+    //         }
+    //     } else
+    //     {
+    //         switch($class)
+    //         {
+    //             case 'system':
+    //                 switch($method)
+    //                 {
+    //                     case 'register': case'do_register': case 'login': case 'do_login':
+    //                         break;
+    //                     default:
+    //                         redirect('login'); break;
+    //                 }
+    //                 break;
+    //             default:
+    //                 redirect('login'); break;
+    //         }
+    //     }
+    // }
 
     // Populates the navigation side bar.
     private function nav_items()
@@ -175,9 +173,6 @@ class CC_Controller extends CI_Controller
                 'submenu'       => $submenu
             ];
         }
-
-
-
 
         return $nav;
     }

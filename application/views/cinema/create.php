@@ -17,6 +17,13 @@
                     'placeholder'   => '100',
                     'value'         => set_value('cinema-capacity')
                 ]); ?>
+                <?php echo custom_form_input('Rows', [
+                    'name'          => 'cinema-rows',
+                    'class'         => 'form-control',
+                    'type'          => 'number',
+                    'placeholder'   => '10',
+                    'value'         => set_value('cinema-rows')
+                ]); ?>
             </div>
         </div>
     </div>

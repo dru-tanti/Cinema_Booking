@@ -16,6 +16,13 @@ class System extends CC_Controller
         $this->load->view('template/footer');
     }
 
+    function logout()
+    {
+        $this->load->view('system/logout');
+        $this->session->sess_destroy();
+        redirect('/');
+    }
+
     function do_login()
     {
         // 1. Load the form validation library.
@@ -120,7 +127,7 @@ class System extends CC_Controller
         $password   = $this->input->post('user-password');
         $name       = $this->input->post('user-name');
         $surname    = $this->input->post('user-surname');
-        $roles      = $this->input->post('user-role');
+        $role      = $this->input->post('user-role');
 
         // 5. Register the user, if it faiils stop here.
         if (!$this->system->new_user($email, $password, $name, $surname, $role))

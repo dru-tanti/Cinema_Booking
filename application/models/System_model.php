@@ -9,9 +9,9 @@ class System_model extends CI_Model
     var $lock_minutes = 5;
 
     // Registers a new user into the system.
-    public function new_user($email, $password, $name, $surname, $roles)
+    public function new_user($email, $password, $name, $surname, $role)
     {
-        if($roles == NULL)
+        if($role == NULL)
         {
             $role = 8;
         }
@@ -27,7 +27,7 @@ class System_model extends CI_Model
             'email'     => $email,
             'password'  => $password,
             'salt'      => $salt,
-            'role_id'   => $roles
+            'role_id'   => $role
         ];
         $this->db->insert('tbl_users', $users);
 

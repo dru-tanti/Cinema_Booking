@@ -21,12 +21,12 @@ class Cinema extends CC_Controller
 
    public function create($submit = FALSE)
    {
-   if($submit != FALSE)
-   {
-      return $this->_do_create();
-   }
+       if($submit != FALSE)
+       {
+          return $this->_do_create();
+       }
 
-   $this->build('cinema/create');
+       $this->build('cinema/create');
    }
 
    public function delete($id = NULL)
@@ -77,7 +77,12 @@ class Cinema extends CC_Controller
             'field'     => 'cinema-capacity',
             'label'     => 'Capacity',
             'rules'     => 'required'
-         ]
+        ],
+        [
+           'field'     => 'cinema-rows',
+           'label'     => 'Rows',
+           'rules'     => 'required'
+        ]
       ]);
 
       // 3. If validation failed, reload the page.
@@ -89,9 +94,10 @@ class Cinema extends CC_Controller
       // 4. Get the inputs from the form.
       $name       = $this->input->post('cinema-name');
       $capacity   = $this->input->post('cinema-capacity');
+      $rows       = $this->input->post('cinema-rows');
 
       // 5. Insert the data in the table and retrieve the ID.
-      $cinema_id = $this->cinema_model->create_cinema($name, $capacity);
+      $cinema_id = $this->cinema_model->create_cinema($name, $capacity, $rows);
       if($cinema_id === FALSE)
       {
          exit("The cinema could not be created. Please try again.");
