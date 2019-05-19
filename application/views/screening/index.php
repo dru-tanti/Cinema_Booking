@@ -25,8 +25,8 @@
 <?php else: foreach ($screenings as $screening): ?>
                         <tr>
                             <td class="text-left"><?php echo $screening['title']; ?></td>
-                            <td><?php echo $screening['cinema'];?></td>
-                            <td><?php echo $screening['time']?></td>
+                            <td><?php echo $screening['name'];?></td>
+                            <td><?php echo date("d-M-Y h:i A", $screening['time']);?></td>
                             <td class="d-flex justify-content-center">
                                 <a href="<?php //echo site_url("screening/edit/{$screening['slug']}"); ?>" class="d-block mx-2">
                                     <i class="icon fas fa-pencil-alt"></i>

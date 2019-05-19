@@ -49,6 +49,7 @@ class CC_Controller extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    // TODO: Check for errors to not allow access to backend if user is not logged in.
     // protected function check_login()
     // {
     //     // These two functions will retrieve the controller name ad method the user has accessed.
@@ -115,7 +116,7 @@ class CC_Controller extends CI_Controller
             'url'       => 'film/create'
         ];
 
-        if($this->system->check_permission('MANAGE_USERS'))
+        if($this->system->check_permission('VIEW_USERS'))
         {
             $submenu = [];
 
@@ -125,19 +126,12 @@ class CC_Controller extends CI_Controller
                 'url'       => 'users'
             ];
 
-            $submenu[] = [
-                'title'     => 'New User',
-                'icon'      => 'fas fa-user-plus',
-                'url'       => 'users/create'
-            ];
-
-
-            if($this->system->check_permission('ASSIGN_PERMISSION'))
+            if($this->system->check_permission('MANAGE_USERS'))
             {
                 $submenu[] = [
-                    'title'     => 'Assign Permissions',
-                    'icon'      => 'fas fa-user-tag',
-                    'url'       => 'users/permissions'
+                    'title'     => 'New User',
+                    'icon'      => 'fas fa-user-plus',
+                    'url'       => 'users/create'
                 ];
             }
 
@@ -173,6 +167,65 @@ class CC_Controller extends CI_Controller
                 'submenu'       => $submenu
             ];
         }
+
+        if($this->system->check_permission('VIEW_SCREENINGS'))
+        {
+            $submenu = [];
+
+            $submenu[] = [
+                'title'     => 'View Screenings',
+                'icon'      => 'fas fa-eye',
+                'url'       => 'screening'
+            ];
+
+            if($this->system->check_permission('ADD_SCREENINGS'))
+            {
+                $submenu[] = [
+                    'title'     => 'New Screening',
+                    'icon'      => 'fas fa-plus',
+                    'url'       => 'screening/create'
+                ];
+            }
+
+            $nav[] = [
+                'title'         => 'Screenings',
+                'icon'          => 'fas fa-film',
+                'submenu'       => $submenu
+            ];
+        }
+
+        if($this->system->check_permission('VIEW_BOOKINGS'))
+        {
+            $submenu = [];
+
+            $submenu[] = [
+                'title'     => 'View Bookings',
+                'icon'      => 'fas fa-eye',
+                'url'       => 'booking'
+            ];
+
+            if($this->system->check_permission('MANAGE_BOOKINGS'))
+            {
+                $submenu[] = [
+                    'title'     => 'New Booking',
+                    'icon'      => 'fas fa-plus',
+                    'url'       => 'booking/create'
+                ];
+            }
+
+            $nav[] = [
+                'title'         => 'Bookings',
+                'icon'          => 'fas fa-book',
+                'submenu'       => $submenu
+            ];
+        }
+
+        $nav [] = [
+            'title'     => 'Back to Home Page',
+            'icon'      => 'fas fa-arrow-left',
+            'url'       => 'home'
+        ];
+
 
         return $nav;
     }

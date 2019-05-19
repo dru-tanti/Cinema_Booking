@@ -7,9 +7,9 @@ class Screening_model extends CI_Model
         $this->db->trans_start();
 
         $screenings = [
-            'time'        => $time,
-            'film'        => $film,
-            'cinema'      => $cinema
+            'time'           => $time,
+            'film_id'        => $film,
+            'cinema_id'      => $cinema
         ];
 
         $this->db->insert('tbl_screenings', $screenings);
@@ -33,6 +33,19 @@ class Screening_model extends CI_Model
                         ->join('tbl_films', 'tbl_films.id = tbl_screenings.film_id')
                         ->join('tbl_cinema', 'tbl_cinema.id = tbl_screenings.cinema_id')
                         ->get('tbl_screenings')
+                        ->result_array();
+    }
+
+    public function get_film_screenings($slug)
+    {
+        // Retrieves the film we are looking for from the slug and finds it's ID
+        $film = $this->film_model->get_film($slug);
+        $id = $film['id'];
+
+        return $this->db->select('*')
+                        ->join('tbl_films', 'tbl_films.id = tbl_screenings.film_id')
+                        ->join('tbl_cinema', 'tbl_cinema.id = tbl_screenings.cinema_id')
+                        ->get_where('tbl_screenings', ['film_id' => $id])
                         ->result_array();
     }
 }

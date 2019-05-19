@@ -9,7 +9,7 @@ class Cinema_model extends CI_Model
       $cinema = [
          'name'      => $name,
          'capacity'  => $capacity,
-         'rows'      => $rows
+         'num_rows'      => $rows
       ];
 
       $this->db->insert('tbl_cinema', $cinema);
@@ -44,6 +44,15 @@ class Cinema_model extends CI_Model
       return $this->db->select('*')
                       ->get('tbl_cinema')
                       ->result_array();
+   }
+
+   public function get_cinema_array()
+   {
+       $results = $this->get_cinemas();
+       $cinemas = [];
+
+       foreach ($results as $row) $cinemas[$row['id']] = $row['name'] . ' (Capacity: ' . $row['capacity'] . ')';
+       return $cinemas;
    }
 
    public function update_cinema($id, $name, $capacity)

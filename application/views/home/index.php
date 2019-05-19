@@ -5,18 +5,17 @@
                         <h1>Main Content</h1>
                     </div>
 <?php foreach($films as $film): ?>
-
                 <div class="film-listing">
                     <div class="card mb-3">
                         <div class="row no-gutters">
                             <div class="col-md-3">
-                                <img src="<?php echo base_url($film['image']); ?>" class="card-img" alt="<?php echo $film['title']; ?>">
+                                <img src="<?php echo base_url()."uploads/films/images/".$film['id'].".jpg"; ?>" class="card-img" alt="<?php echo $film['title']; ?>">
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <h3 class="card-title"><?php echo $film['title']; ?></h3>
-                                        <a href="#" class="ml-auto"><small>More Info</small></a>
+                                        <a href="<?php echo site_url('film_view/'.$film['slug']); ?>" class="ml-auto"><small>More Info</small></a>
                                     </div>
                                     <div class="d-flex">
                                         <p class="card-text col-2"><small class="text-muted">Rating: E</small></p>

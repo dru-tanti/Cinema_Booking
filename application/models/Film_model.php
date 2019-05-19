@@ -62,7 +62,7 @@ class Film_model extends CI_Model
     }
 
     // Deletes a film from the database.
-    public function delete_article($slug)
+    public function delete_film($slug)
     {
         $this->db->delete('tbl_films', ['slug' => $slug]);
     }
@@ -89,7 +89,7 @@ class Film_model extends CI_Model
     public function get_film_categories($film_id)
     {
         $results = $this->db->select('category_id')
-        ->get_where('tbl_film_category', ['id' => $film_id])
+        ->get_where('tbl_film_category', ['film_id' => $film_id])
         ->result_array();
 
         $ids = [];
@@ -114,12 +114,55 @@ class Film_model extends CI_Model
                         ->result_array();
     }
 
+    public function get_films_array()
+    {
+        $results = $this->get_films();
+        $films = [];
+
+        foreach ($results as $row) $films[$row['id']] = $row['title'];
+        return $films;
+    }
+
     public function now_showing()
     {
         return $this->db->select('*')
                         ->where('release <', time())
                         ->get('tbl_films')
                         ->result_array();
+    }
+
+    public function replace_categories($id, $categories = [])
+    {
+        $this->db->trans_start();
+
+        $this->db->delete('tbl_film_category', ['film_id' => $id]);
+
+        // Checks how many categories have been chosen, and uses a loop to insert them.
+        if(count($categories) > 0)
+        {
+            $inserts = [];
+            foreach ($categories as $cat)
+            {
+                $inserts[] = [
+                    'film_id'       => $id,
+                    'category_id'   => $cat
+                ];
+            }
+
+            $this->db->insert_batch('tbl_film_category', $inserts);
+        }
+
+        $this->db->trans_complete();
+
+        // Rolls back the transaction if it is not successful.
+        if($this->db->trans_status() === FALSE)
+        {
+            $this->rb->trans_rollback();
+            return FALSE;
+        } else {
+            $this->db->trans_commit();
+            return TRUE;
+        }
     }
 
     public function update_film($id, $title)

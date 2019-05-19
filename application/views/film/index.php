@@ -24,7 +24,7 @@
 <?php else: foreach ($films as $film): ?>
                         <tr>
                             <td class="text-left"><?php echo $film['title']; ?></td>
-                            <td><?php echo  date("d-m-Y", $film['release']);?></td>
+                            <td><?php echo  date("d-M-Y h:i:s A", $film['release']);?></td>
                             <td class="d-flex justify-content-center">
                                 <a href="<?php echo site_url("film/edit/{$film['slug']}"); ?>" class="d-block mx-2">
                                     <i class="icon fas fa-pencil-alt"></i>

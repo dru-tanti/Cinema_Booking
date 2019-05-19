@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// TODO: Delete film and any screenings associated with it.
+
 class Film extends CC_Controller
 {
     // This is the folder path all text will upload to.
@@ -79,7 +81,7 @@ class Film extends CC_Controller
         // Check that the form was sent.
         if($submit !== FALSE)
         {
-         return $this->do_edit($film);
+         return $this->_do_edit($film);
         }
 
         // loads the user-agent library to identify platform.
@@ -137,7 +139,7 @@ class Film extends CC_Controller
         $release    = $this->input->post('film-release');
         $categories = $this->input->post('film-categories') ?: [];
 
-
+        $release = str_replace('/', '-', $release);
         $release = strtotime($release);
 
         // 5. Try to insert the data in its tables, and get back the ID.
@@ -186,7 +188,7 @@ class Film extends CC_Controller
             $rules[] = [
                 'field'	=> 'film-image',
                 'label'	=> 'Image',
-                'rules' => 'file_size_max[2mb]|file_allowed_type[gif,jpg,png]'
+                'rules' => 'file_size_max[10mb]|file_allowed_type[gif,jpg,png]'
             ];
         }
 
@@ -201,7 +203,11 @@ class Film extends CC_Controller
         // 4. Get the inputs from the form.
         $title		= $this->input->post('film-title');
         $text		= $this->input->post('film-text');
+        $time       = $this->input->post('film-runtime');
+        $release    = $this->input->post('film-release');
         $categories = $this->input->post('film-categories') ?: [];
+
+        $release = strtotime($time);
 
         // 5. Check if anything has changed in the form.
         if ($film['title'] != $title)
@@ -264,7 +270,7 @@ class Film extends CC_Controller
         $config['upload_path']			= $this->images_folder;
         $config['file_name']			= $name;
         $config['allowed_types']		= 'gif|jpg|png';
-        $config['max_size']				= 10240;
+        $config['max_size']				= 102400;
         $config['file_ext_tolower']		= TRUE;
 
         // Load the upload library and set its configuration.

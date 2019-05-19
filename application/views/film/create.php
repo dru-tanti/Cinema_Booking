@@ -29,7 +29,7 @@
                 ]); ?>
 
                 <?php echo form_error('film-release'); ?>
-                <?php echo custom_form_input('Release Data', [
+                <?php echo custom_form_input('Release Date', [
                     'name'          => 'film-release',
                     'class'         => 'form-control',
                     'placeholder'   => 'DD/MM/YYYY',

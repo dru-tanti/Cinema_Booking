@@ -33,7 +33,7 @@
                     'name'          => 'film-release',
                     'class'         => 'form-control',
                     'placeholder'   => 'DD/MM/YYYY',
-                    'value'         => $film['release'] ?: set_value('film-release')
+                    'value'         => date("d/m/Y", $film['release']) ?: set_value('film-release')
                 ]); ?>
 
                 <img src="<?php echo base_url($film['image']); ?>" alt="" class"d-block w-100 mb-3">

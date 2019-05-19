@@ -15,6 +15,7 @@ class Home extends CC_Controller
         parent::__construct();
 
         $this->load->model('film_model');
+        $this->load->model('screening_model');
         $this->load->helper('file');
     }
 
@@ -27,6 +28,21 @@ class Home extends CC_Controller
         ];
 
         $this->build('home/index', $data);
+    }
+
+    public function film_view($slug = '')
+    {
+        $data = [
+            'film'          => $this->film_model->get_film($slug),
+            'screenings'    => $this->screening_model->get_film_screenings($slug)
+        ];
+
+        $this->build('home/film_view', $data);
+    }
+
+    public function booking()
+    {
+        $this->build('home/booking');
     }
 
     // Looks for an image with a particular ID and returns the path.
