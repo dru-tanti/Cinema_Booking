@@ -15,7 +15,7 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <h3 class="card-title"><?php echo $film['title']; ?></h3>
-                                        <a href="<?php echo site_url('film_view/'.$film['slug']); ?>" class="ml-auto"><small>More Info</small></a>
+                                        <a href="<?php echo site_url('home/film_view/'.$film['slug']); ?>" class="ml-auto"><small>More Info</small></a>
                                     </div>
                                     <div class="d-flex">
                                         <p class="card-text col-2"><small class="text-muted">Rating: E</small></p>

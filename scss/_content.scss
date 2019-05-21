@@ -33,6 +33,16 @@
             }
         }
     }
+
+   .screening-card{
+      a{
+         color: color($nav, 'active');
+         text-decoration: none;
+         &:hover{
+            color: color($nav, 'hover');
+         }
+      }
+   }
 }
 
 @media (max-width: 767px) {

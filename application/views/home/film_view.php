@@ -14,7 +14,6 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <h3 class="card-title"><?php echo $film['title']; ?></h3>
-                                <a href="<?php echo site_url('film_view/'.$film['id']); ?>" class="ml-auto"><small>More Info</small></a>
                             </div>
                             <div class="d-flex">
                                 <p class="card-text col-2"><small class="text-muted">Rating: E</small></p>
@@ -33,9 +32,11 @@
                 <h1>Sidebar</h1>
             </div>
 <?php foreach($screenings as $screening): ?>
-            <div class="card bg-dark text-white p-3">
-                <h5 class="card-title"><?php echo date("d-M-Y h:i A", $screening['time']);?></h5>
-                <p class="card-text"><?php echo $screening['name']; ?></p>
+            <div class="screening-card bg-dark text-white my-3 p-3">
+               <a href="<?php echo site_url('booking/'.$film['slug']) ?>">
+                  <h5 class="card-title"><?php echo date("d-M-Y h:i A", $screening['time']);?></h5>
+                  <p class="card-text"><?php echo $screening['name']; ?></p>
+               </a>
             </div>
 <?php endforeach; ?>
         </aside>

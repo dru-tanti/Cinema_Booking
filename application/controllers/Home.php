@@ -42,7 +42,11 @@ class Home extends CC_Controller
 
     public function booking()
     {
-        $this->build('home/booking');
+      $data = [
+         'seats' => 200
+      ];
+
+        $this->build('home/booking', $data);
     }
 
     // Looks for an image with a particular ID and returns the path.

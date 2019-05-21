@@ -201,7 +201,7 @@ class CC_Controller extends CI_Controller
             $submenu[] = [
                 'title'     => 'View Bookings',
                 'icon'      => 'fas fa-eye',
-                'url'       => 'booking'
+                'url'       => 'booking/index'
             ];
 
             if($this->system->check_permission('MANAGE_BOOKINGS'))
