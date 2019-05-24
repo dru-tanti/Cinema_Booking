@@ -49,55 +49,54 @@ class CC_Controller extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    // TODO: Check for errors to not allow access to backend if user is not logged in.
-    // protected function check_login()
-    // {
-    //     // These two functions will retrieve the controller name ad method the user has accessed.
-    //     $class  = $this->router->fetch_class();
-    //     $method = $this->router->fetch_method();
-    //
-    //     $is_logged = $this->system->confirm_session();
-    //
-    //     if ($is_logged)
-    //     {
-    //         switch($class)
-    //         {
-    //             case 'system':
-    //                 switch($method)
-    //                 {
-    //                     case 'register': case'do_register': case 'login': case 'do_login':
-    //                     redirect('/');
-    //                     break;
-    //                 }
-    //                 break;
-    //
-    //             default:
-    //                 // If the user doesn't have the permission to view the backend, log them out.
-    //                 if(!$this->system->check_permission('BACKEND_ACCESS'))
-    //                 {
-    //                     $this->session->sess_destroy();
-    //                     exit("You do not have permission to access this page");
-    //                 }
-    //                 break;
-    //         }
-    //     } else
-    //     {
-    //         switch($class)
-    //         {
-    //             case 'system':
-    //                 switch($method)
-    //                 {
-    //                     case 'register': case'do_register': case 'login': case 'do_login':
-    //                         break;
-    //                     default:
-    //                         redirect('login'); break;
-    //                 }
-    //                 break;
-    //             default:
-    //                 redirect('login'); break;
-    //         }
-    //     }
-    // }
+    protected function check_login()
+    {
+        // These two functions will retrieve the controller name and method the user has accessed.
+        $class  = $this->router->fetch_class();
+        $method = $this->router->fetch_method();
+
+        $is_logged = $this->system->confirm_session();
+
+        if ($is_logged)
+        {
+            switch($class)
+            {
+                case 'system':
+                    switch($method)
+                    {
+                        case 'register': case'do_register': case 'login': case 'do_login':
+                        redirect('/');
+                        break;
+                    }
+                    break;
+
+                default:
+                    // If the user doesn't have the permission to view the backend, log them out.
+                    if(!$this->system->check_permission('BACKEND_ACCESS'))
+                    {
+                        $this->session->sess_destroy();
+                        exit("You do not have permission to access this page");
+                    }
+                    break;
+            }
+        } else
+        {
+            switch($class)
+            {
+                case 'system':
+                    switch($method)
+                    {
+                        case 'register': case'do_register': case 'login': case 'do_login':
+                            break;
+                        default:
+                            redirect('login'); break;
+                    }
+                    break;
+                default:
+                    redirect('login'); break;
+            }
+        }
+    }
 
     // Populates the navigation side bar.
     private function nav_items()
@@ -107,6 +106,12 @@ class CC_Controller extends CI_Controller
         $nav [] = [
             'title'     => 'Home',
             'icon'      => 'fas fa-home',
+            'url'       => 'home'
+        ];
+
+        $nav [] = [
+            'title'     => 'Film List',
+            'icon'      => 'fas fa-eye',
             'url'       => 'film'
         ];
 
@@ -196,35 +201,12 @@ class CC_Controller extends CI_Controller
 
         if($this->system->check_permission('VIEW_BOOKINGS'))
         {
-            $submenu = [];
-
-            $submenu[] = [
+            $nav[] = [
                 'title'     => 'View Bookings',
                 'icon'      => 'fas fa-eye',
                 'url'       => 'booking/index'
             ];
-
-            if($this->system->check_permission('MANAGE_BOOKINGS'))
-            {
-                $submenu[] = [
-                    'title'     => 'New Booking',
-                    'icon'      => 'fas fa-plus',
-                    'url'       => 'booking/create'
-                ];
-            }
-
-            $nav[] = [
-                'title'         => 'Bookings',
-                'icon'          => 'fas fa-book',
-                'submenu'       => $submenu
-            ];
         }
-
-        $nav [] = [
-            'title'     => 'Back to Home Page',
-            'icon'      => 'fas fa-arrow-left',
-            'url'       => 'home'
-        ];
 
 
         return $nav;

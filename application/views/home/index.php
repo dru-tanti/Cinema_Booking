@@ -2,7 +2,7 @@
             <div class="row">
                 <main class="col-12 col-md-8 my-4">
                     <div class="page-header">
-                        <h1>Main Content</h1>
+                        <h1>Now Showing</h1>
                     </div>
 <?php foreach($films as $film): ?>
                 <div class="film-listing">
@@ -32,7 +32,7 @@
                 </main>
                 <aside class="sidebar col-12 col-md-2 d-block m-4">
                     <div class="page-header">
-                        <h1>Sidebar</h1>
+                        <h1>Coming Soon</h1>
                     </div>
 <?php foreach($coming_soon as $soon): ?>
                     <div class="card bg-dark text-white mb-3">

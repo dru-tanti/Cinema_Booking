@@ -15,6 +15,7 @@ class Home extends CC_Controller
         parent::__construct();
 
         $this->load->model('film_model');
+        $this->load->model('cinema_model');
         $this->load->model('screening_model');
         $this->load->helper('file');
     }
@@ -24,7 +25,7 @@ class Home extends CC_Controller
     {
         $data = [
             'films'         => $this->film_model->now_showing(),
-            'coming_soon'   => $this->film_model->coming_soon()
+            'coming_soon'   => $this->film_model->coming_soon(),
         ];
 
         $this->build('home/index', $data);
@@ -32,19 +33,40 @@ class Home extends CC_Controller
 
     public function film_view($slug = '')
     {
+        if(!$film = $this->film_model->get_film($slug))
+        {
+            show_404();
+        }
+        $categories = $this->film_model->get_category_names($film['id']);
+        $film['image'] =  $this->_get_image_path($film['id']);
+
         $data = [
-            'film'          => $this->film_model->get_film($slug),
-            'screenings'    => $this->screening_model->get_film_screenings($slug)
+            'film'          => $film,
+            'categories'    => $categories,
+            'screenings'    => $this->screening_model->get_film_screenings($slug),
         ];
 
         $this->build('home/film_view', $data);
     }
 
-    public function booking()
+    public function booking($id = NULL, $submit = FALSE)
     {
-      $data = [
-         'seats' => 200
-      ];
+        if(!$screening = $this->screening_model->get_screening($id))
+        {
+            show_404();
+        }
+
+        $cinema = $this->cinema_model->get_cinema_capacity($screening['cinema_id']);
+
+        if($submit != FALSE)
+        {
+            return $this->_do_create();
+        }
+
+        $data = [
+            'cinema'        => $cinema,
+            'screening'     => $screening
+        ];
 
         $this->build('home/booking', $data);
     }

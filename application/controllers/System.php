@@ -7,6 +7,8 @@ class System extends CC_Controller
     function __construct()
     {
         parent::__construct();
+        $this->check_login();
+
     }
 
     function login()

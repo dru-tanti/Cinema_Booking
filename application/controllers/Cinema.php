@@ -8,6 +8,8 @@ class Cinema extends CC_Controller
      parent::__construct();
      $this->load->model('cinema_model');
 
+     $this->check_login();
+
    }
 
    public function index()
@@ -106,7 +108,7 @@ class Cinema extends CC_Controller
       redirect('cinema');
    }
 
-   private function _do_edit()
+   private function _do_edit($cinema)
    {
       // 1. Load form validation library.
       $this->load->library(['form_validation' => 'fv']);
@@ -134,14 +136,17 @@ class Cinema extends CC_Controller
       // 4. Get the inputs from the form.
       $name       = $this->input->post('cinema-name');
       $capacity   = $this->input->post('cinema-capacity');
+      $num_row    = $this->input->post('cinema-rows');
 
       // 5. Check if anything changed.
-      if($cinema['name'] != $name || $cinema['capacity'] != $capacity)
+      if($cinema['name'] != $name || $cinema['capacity'] != $capacity || $cinema['num_rows'] != $num_row)
       {
-         if (!$this->cinema_model->update_cinema($cinema['id'], $title, $capacity))
+         if (!$this->cinema_model->update_cinema($cinema['id'], $title, $capacity, $num_row))
          {
             exit("The cinema could not be updated");
          }
       }
+
+      redirect('cinema');
    }
 }

@@ -5,6 +5,7 @@
     border-bottom: 1px solid color($theme, 'borders');
     min-height: size($layout, 'navbar');
     padding-left: size($layout, 'sidebar');
+    text-align: center;
     .nav-container{
         a {
             color: color($nav, 'active');
@@ -18,7 +19,7 @@
                 background: none repeat scroll 0 0 transparent;
                 bottom: 0;
                 content: "";
-            	 display: block;
+            	display: block;
                 height: 2px;
                 left: 50%;
                 position: absolute;
@@ -31,14 +32,5 @@
                 left: 0;
             }
         }
-    }
-}
-
-.toggle-sidebar {
-    padding: 1rem;
-
-    .icon {
-        color: color($nav, 'icon');
-        font-size: 1.25rem;
     }
 }

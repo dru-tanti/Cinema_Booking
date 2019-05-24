@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   background-color: #e2e4e6;
   font-size: 14px;
@@ -8,6 +12,7 @@ html, body {
   border-bottom: 1px solid #e1e5eb;
   min-height: 3.5rem;
   padding-left: 15rem;
+  text-align: center;
 }
 
 .navbar .nav-container a {
@@ -36,15 +41,6 @@ html, body {
 .navbar .nav-container a:hover:after {
   width: 100%;
   left: 0;
-}
-
-.toggle-sidebar {
-  padding: 1rem;
-}
-
-.toggle-sidebar .icon {
-  color: #caceda;
-  font-size: 1.25rem;
 }
 
 #sidebar {
@@ -158,6 +154,15 @@ html, body {
 #content .film-listing .card .card-img-overlay {
   background: linear-gradient(rgba(0, 0, 0, 0.5), 30%, rgba(0, 0, 0, 0.01));
   font-size: 0.6rem;
+}
+
+#content .screening-card a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#content .screening-card a:hover {
+  color: #caceda;
 }
 
 @media (max-width: 767px) {

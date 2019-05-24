@@ -8,6 +8,8 @@ class Users extends CC_Controller
         parent::__construct();
 
         $this->load->model('system_model');
+        $this->check_login();
+
     }
 
     public function index()

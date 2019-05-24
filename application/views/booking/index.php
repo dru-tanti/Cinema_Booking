@@ -28,7 +28,7 @@
                         <tr>
                             <td class="text-left"><?php echo $booking['title'];?></td>
                             <td><?php echo $booking['email']; ?></td>
-                            <td><?php echo $booking['time'];?></td>
+                            <td><?php echo date("d-F-Y h:i A", $booking['time']);?></td>
                             <td><?php echo $booking['seat_no'];?></td>
                             <td class="d-flex justify-content-center">
                                 <a href="<?php echo site_url("booking/edit/{$booking['id']}"); ?>" class="d-block mx-2">

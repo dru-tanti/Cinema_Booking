@@ -26,13 +26,10 @@
                         <tr>
                             <td class="text-left"><?php echo $screening['title']; ?></td>
                             <td><?php echo $screening['name'];?></td>
-                            <td><?php echo date("d-M-Y h:i A", $screening['time']);?></td>
+                            <td><?php echo date("d F Y h:i A", $screening['time']);?></td>
                             <td class="d-flex justify-content-center">
-                                <a href="<?php //echo site_url("screening/edit/{$screening['slug']}"); ?>" class="d-block mx-2">
-                                    <i class="icon fas fa-pencil-alt"></i>
-                                </a>
-                                <a href="<?php //echo site_url("screening/delete/{$screening['slug']}"); ?>" class="d-block mx-2">
-                                    <i class="icon fas fa-trash"></i>
+                                <a href="<?php echo site_url("booking/create/{$screening['screening_id']}"); ?>" class="d-block mx-2">
+                                    <i class="icon fas fa-plus"></i>
                                 </a>
                             </td>
                         </tr>

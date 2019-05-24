@@ -89,13 +89,27 @@ class Film_model extends CI_Model
     public function get_film_categories($film_id)
     {
         $results = $this->db->select('category_id')
-        ->get_where('tbl_film_category', ['film_id' => $film_id])
-        ->result_array();
+                            ->get_where('tbl_film_category', ['film_id' => $film_id])
+                            ->result_array();
 
         $ids = [];
         foreach ($results as $row) $ids[] = $row['category_id'];
 
         return $ids;
+    }
+
+    // Retrieves the categories for an film
+    public function get_category_names($film_id)
+    {
+        $results = $this->db->select('*')
+                            ->join('tbl_categories', 'tbl_categories.id = tbl_film_category.category_id')
+                            ->get_where('tbl_film_category', ['film_id' => $film_id])
+                            ->result_array();
+
+        $categories = [];
+        foreach ($results as $row) $categories[] = $row['name'];
+
+        return $categories;
     }
 
     // Retrieves a single film from the databse.
@@ -175,7 +189,7 @@ class Film_model extends CI_Model
                      'slug'     => $slug
                  ]);
 
-        // Check if th query worked by checking if any rows were affected.
+        // Check if the query worked by checking if any rows were affected.
         return $this->db->affected_rows() == 1;
     }
 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Eden Cinemas</title>
+
+        <!-- The Bootstrap CSS file -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+
+        <!-- FontAwesome Icons -->
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: Helvetica, sans-serif;
+        }
+
+        /* Style the header */
+        header {
+          background-color: #272E37;
+          padding: 20px;
+          text-align: center;
+          font-size: 25px;
+          color: white;
+        }
+
+        /* Style the footer */
+        footer {
+          background-color: #272E37;
+          padding: 10px;
+          text-align: center;
+          color: white;
+        }
+
+        .image {
+           position: relative;
+           width: 100%;
+        }
+
+        .image-title {
+           position: absolute;
+           top: 350px;
+           color: white;
+        }
+
+        .section-title {
+           color: #11191f;
+        }
+
+        .buttons {
+            background-color: #ffa500;
+            color:#ffffff;
+            font-size: 15px;
+            padding:3px 56px;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        .movie-bar {
+            background-color: #272E37;
+            color: white;
+        }
+
+        .col-centered{
+            display:inline-block;
+            float:none;
+            text-align:left;
+            margin-right:-4px;
+            text-align: center;
+        }
+
+        </style>
+        <!-- MENU BAR FOR NAVIGATION -->
+        <header>
+            <div class="row">
+                <div class="col d-flex flex-column justify-content-center">
+                  <h2>Eden Cinemas</h2>
+                </div>
+                <div class="col d-flex flex-column justify-content-center">
+                  <h6 class="m-0">NOW SHOWING</h6>
+                </div>
+                <div class="col flex-column justify-content-center">
+                    <button type="button" class="buttons">LOGIN</button>
+                </div>
+             </div>
+        </header>
+
+        <div class="image">
+            <img src="/Users/mariacamilleri/Desktop/home page/images/movie-1.jpg"  class="img-fluid" alt="" style="width:100%;">
+        </div>
+
+        <div class="row movie-bar">
+            <div class="col-3 p-5 col-centered">
+              <h6 class="m-0">Latest Releases</h6>
+            </div>
+            <div class="col-3 p-5 col-centered">
+              <h6 class="m-0">Now Showing</h6>
+            </div>
+            <div class="col-3 p-5 col-centered">
+              <h6 class="m-0">Coming Soon</h6>
+            </div>
+            <div class="col-3 p-5 col-centered">
+              <h6 class="m-0">Blablabla</h6>
+            </div>
+        </div>
+        <div class="row p-5 movie-bar">
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+        </div>
+
+
+        <div class="row p-5">
+            <div class="col-2" >
+                <img src="/Users/mariacamilleri/Desktop/home page/images/movie-poster.jpg" alt="Snow" style="width:100%">
+            </div>
+        </div>
+
+        <!-- The Bootstrap Javascript files -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <!-- FOOTER CONTAINING INFORMATION -->
+        <footer>
+            <div class="row pt-5">
+                <div class="col p-5">
+                    <h2>EDEN CINEMAS</h2>
+                </div>
+                <div class="col p-5">
+                    <p align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque maximus lacinia.</p>
+                </div>
+                <div class="col p-5">
+                    <p align="left">ALL RIGHTS RESERVED</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

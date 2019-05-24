@@ -14,12 +14,11 @@ class Film extends CC_Controller
     // The class constructer will be needed here.
     function __construct()
     {
-        //$this->check_login();
         parent::__construct();
 
         $this->load->model('film_model');
         $this->load->helper('file');
-
+        $this->check_login();
     }
 
     // Builds the index that shows all the films in the databse.
@@ -75,19 +74,19 @@ class Film extends CC_Controller
         // Check if the film exists, and if it does assign to a variable.
         if(!$film = $this->film_model->get_film($slug))
         {
-         show_404();
+            show_404();
         }
 
         // Check that the form was sent.
         if($submit !== FALSE)
         {
-         return $this->_do_edit($film);
+            return $this->_do_edit($film);
         }
 
         // loads the user-agent library to identify platform.
         $this->load->library(['user_agent' => 'ua']);
 
-        $film['text'] = read_file("{$this->text_folder}/{$film['id']}.txt");
+        $film['text'] = readfile("{$this->text_folder}/{$film['id']}.txt");
     	$film['categories'] = $this->film_model->get_film_categories($film['id']);
     	$film['image'] = $this->_get_image_path($film['id']);
 

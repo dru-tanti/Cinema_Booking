@@ -1,4 +1,7 @@
 // main: style.scss
+* {
+  box-sizing: border-box;
+}
 
 html, body {
     background-color: color($theme, 'background');

@@ -6,27 +6,23 @@
             </div>
             <div class="row">
                <div class="col-md-6">
-                  <form id="reservation" action="" method="post">
-                     <section id="seats" class="seats">
-                        <?php
-                        $row = 0;
-                        print "<table>";
-                        while ($row < 8){
-                           print "<tr>";
-                           $row++;
-                           $col = 0;
-                           while ($col < 8){
-                            print "<td>";
-                            print '<input type="checkbox" name="battle" value="ships">';
-                            print "</td>";
-                            $col++;
-                           }
-                           print "</tr>";
-                        }
-                        print "</table>";
-                         ?>
-                     </section>
-                  </form>
+                   <table align="center">
+   <?php
+       $cols = $cinema['capacity'] / $cinema['num_rows'];
+       for ($row = 0; $row < $cinema['num_rows']; $row++):
+   ?>
+                       <tr>
+   <?php
+       for ($col = 0; $col < $cols; $col++):
+           $seat = ($row * $cols) + $col;
+   ?>
+                           <td>
+                               <input type="checkbox" name="booking-seat[]" class="mx-3 my-2" value="<?php echo $seat; ?>">
+                           </td>
+   <?php endfor; ?>
+                       </tr>
+   <?php endfor; ?>
+                   </table>
 
                </div>
 

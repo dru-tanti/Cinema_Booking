@@ -1,3 +1,4 @@
+
         <nav class = "navbar navbar-expand-lg sticky-top border-bottom py-1">
             <a href="<?php echo site_url('home') ?>" class="navbar-brand ml-4">
                 <img src="<?php echo base_url('images/logo.png') ?>" width = "64" height= "64" alt="Eden Cinemas Logo" class="d-sm-block">

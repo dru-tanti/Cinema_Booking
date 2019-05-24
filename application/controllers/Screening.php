@@ -9,6 +9,8 @@ class Screening extends CC_Controller
         $this->load->model('screening_model');
         $this->load->model('film_model');
         $this->load->model('cinema_model');
+        $this->check_login();
+
     }
 
     public function index()
@@ -79,7 +81,7 @@ class Screening extends CC_Controller
         $date       = $this->input->post('screening-date');
         $film	    = $this->input->post('screening-film');
         $cinema     = $this->input->post('screening-cinema');
-        
+
         $date = str_replace('/', '-', $date);
         $date = strtotime($date);
         $time = $date + ($time_input * 60 * 60);
