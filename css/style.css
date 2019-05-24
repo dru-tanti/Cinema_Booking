@@ -5,27 +5,25 @@
 html, body {
   background-color: #e2e4e6;
   font-size: 14px;
+  font-family: Helvetica, sans-serif;
 }
 
-.navbar {
+.header {
   background: linear-gradient(#0e4e97, 70%, #000);
   border-bottom: 1px solid #e1e5eb;
   min-height: 3.5rem;
-  padding-left: 15rem;
   text-align: center;
 }
 
-.navbar .nav-container a {
+.header .nav-container a {
   color: #fff;
-  display: inline-block;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  position: relative;
+  letter-spacing: 0.3rem;
   padding: 15px 20px;
 }
 
-.navbar .nav-container a:after {
+.header .nav-container a:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
   content: "";
@@ -38,7 +36,7 @@ html, body {
   width: 0;
 }
 
-.navbar .nav-container a:hover:after {
+.header .nav-container a:hover:after {
   width: 100%;
   left: 0;
 }
