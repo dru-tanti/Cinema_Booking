@@ -17,6 +17,7 @@ class Home extends CC_Controller
         $this->load->model('film_model');
         $this->load->model('cinema_model');
         $this->load->model('screening_model');
+        $this->load->model('booking_model');
         $this->load->helper('file');
     }
 
@@ -84,4 +85,38 @@ class Home extends CC_Controller
         var_dump($files);
     }
 
+    public function _do_create()
+    {
+        // 1. Load the form_validation library.
+        $this->load->library(['form_validation' => 'fv']);
+
+        // 2. Set the validation rules.
+        $this->fv->set_rules([
+            [
+                'field'     => 'booking-email',
+                'label'     => 'email',
+                'rules'     => 'required|valid_email'
+            ]
+        ]);
+
+        // 3. If the validation failed, we'll reload.
+        if($this->fv->run() === FALSE)
+        {
+            return $this->create();
+        }
+
+        // 4. Get the inputs from the form.
+        $screening = $this->input->post('booking-screening');
+        $seats = $this->input->post('booking-seat');
+        $email = $this->input->post('booking-email');
+
+        // 5. Try to insert the data in its tables, and get back the ID.
+        $booking_id = $this->booking_model->create_booking($screening, $seats, $email);
+        if($booking_id === FALSE)
+        {
+            exit("Booking could not be created. Please try again later");
+        }
+
+        redirect('home');
+    }
 }

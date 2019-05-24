@@ -1,6 +1,6 @@
         <div class="container-fluid" id="content">
             <div class="row">
-                <main class="col-12 col-md-8 my-4">
+                <main class="col-12 col-md-7 my-4">
                     <div class="page-header">
                         <h1>Now Showing</h1>
                     </div>
@@ -8,14 +8,14 @@
                 <div class="film-listing">
                     <div class="card mb-3">
                         <div class="row no-gutters">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <img src="<?php echo base_url()."uploads/films/images/".$film['id'].".jpg"; ?>" class="card-img" alt="<?php echo $film['title']; ?>">
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <h3 class="card-title"><?php echo $film['title']; ?></h3>
-                                        <a href="<?php echo site_url('home/film_view/'.$film['slug']); ?>" class="ml-auto"><small>More Info</small></a>
+                                        <a href="<?php echo site_url('home/film_view/'.$film['slug']); ?>" class="ml-auto btn btn-secondary pt-2 px-5">More Info</a>
                                     </div>
                                     <div class="d-flex">
                                         <p class="card-text col-2"><small class="text-muted">Rating: E</small></p>
@@ -30,7 +30,7 @@
                 </div>
 <?php endforeach; ?>
                 </main>
-                <aside class="sidebar col-12 col-md-2 d-block m-4">
+                <aside class="sidebar film-listing col-12 col-md-3 d-block m-4">
                     <div class="page-header">
                         <h1>Coming Soon</h1>
                     </div>

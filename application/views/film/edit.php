@@ -17,7 +17,7 @@
                     'name'          => 'film-text',
                     'placeholder'   => 'This is the start of your next work!',
                     'class'         => 'form-control mb-3',
-                    'value'         => $film['text'] ?: set_value('film-text')
+                    'value'         => readfile($film['text']) ?: set_value('film-text')
                 ]); ?>
                 <?php echo form_error('film-runtime'); ?>
                 <?php echo custom_form_input('Runtime', [

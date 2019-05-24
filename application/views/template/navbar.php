@@ -2,12 +2,12 @@
         <nav class="header">
             <div class="row nav-container mx-4">
                 <div class="col d-flex flex-column justify-content-center">
-                    <a href="<?php echo site_url('home') ?>" class="navbar-brand">
+                    <div class="navbar-brand">
                         <img src="<?php echo base_url('images/logo.png') ?>" width = "72" height= "72" alt="Eden Cinemas Logo" class="">
-                    </a>
+                    </div>
                 </div>
                 <div class="col d-flex flex-column justify-content-center">
-                    <a href="#"><h5>Now Showing</h5></a>
+                    <a href="<?php echo site_url('home') ?>"><h5>Now Showing</h5></a>
                 </div>
                 <div class="col d-flex flex-column justify-content-center">
                     <?php $is_logged = $this->system->confirm_session();

@@ -21,15 +21,15 @@
 
     .film-listing{
         .card {
-            max-height: 356px;
+            max-height: 386px;
             width: 100%;
             .card-img {
-                max-height: 354px;
+                max-height: 386px;
                 object-fit: cover;
             }
             .card-img-overlay {
                 background: linear-gradient(rgba(0, 0, 0, 0.50), 30%, rgba(0, 0, 0, 0.01));
-                font-size: 0.6rem;
+                font-size: 0.8rem;
             }
         }
     }

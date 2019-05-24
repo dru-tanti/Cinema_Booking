@@ -28,10 +28,7 @@
                             <td><?php echo $user['email']; ?></td>
                             <td><?php echo $user['role_name'] ?></td>
                             <td class="d-flex justify-content-center">
-                                <a href="<?php //echo site_url("user/edit/{$user['id']}"); ?>" class="d-block mx-2">
-                                    <i class="icon fas fa-pencil-alt"></i>
-                                </a>
-                                <a href="<?php //echo site_url("user/delete/{$user['id']}"); ?>" class="d-block mx-2">
+                                <a href="<?php echo site_url("user/delete/{$user['id']}"); ?>" class="d-block mx-2">
                                     <i class="icon fas fa-trash"></i>
                                 </a>
                             </td>

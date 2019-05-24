@@ -203,7 +203,7 @@ class CC_Controller extends CI_Controller
         {
             $nav[] = [
                 'title'     => 'View Bookings',
-                'icon'      => 'fas fa-eye',
+                'icon'      => 'fas fa-book',
                 'url'       => 'booking/index'
             ];
         }

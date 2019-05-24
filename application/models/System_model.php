@@ -101,6 +101,100 @@ class System_model extends CI_Model
                         ->row_array();
     }
 
+    // Checks the permissions for a particular role.
+    public function check_permission($name, $role_id = NULL)
+    {
+        // If no role was specified we'll access what's available in the session data.
+        if ($role_id == NULL) $role_id = $this->session->userdata('role');
+
+        // Ensure the $name variable is all uppercase to match the database entry
+        $name = strtoupper($name);
+
+        $perm = $this->db->select('access')
+        ->get_where('tbl_permissions', ['name' => $name])
+        ->row_array();
+
+        if ($perm == NULL) return FALSE;
+
+        return (($perm['access'] & $role_id) == $role_id);
+    }
+
+    // Confirms that this device has an active session in the database.
+    public function confirm_session()
+    {
+        $where = [
+            'user_id'           => $this->session->userdata('id'),
+            'sess_identifier'   => $this->session->userdata('session_code'),
+            'expiration >'      => time()
+        ];
+
+        return $this->db->get_where('tbl_login_sessions', $where)->num_rows() == 1;
+    }
+
+    // Deletes user from the database.
+    public function delete_user($id)
+    {
+        $this->db->delete('tbl_users', ['id' => $id]);
+    }
+
+    // Retrieves a single user from the database.
+    public function get_user($id)
+    {
+        return $this->db
+                    ->get_where('tbl_users', ['id' => $id])
+                    ->row_array();
+    }
+
+    // Retrieves all the users, and their details
+    public function get_users()
+    {
+        return $this->db->select('tbl_users.id, tbl_users.email, tbl_user_details.name, tbl_user_details.surname, tbl_roles.role_name')
+        ->join('tbl_user_details', 'tbl_users.id = tbl_user_details.user_id')
+        ->join('tbl_roles', 'tbl_users.role_id = tbl_roles.id')
+        ->get('tbl_users')
+        ->result_array();
+    }
+
+    // Retrieves all the roles from the database to be assigned by the admin.
+    public function get_roles()
+    {
+        return $this->db->get('tbl_roles')->result_array();
+    }
+
+    // Retrieves the roles as an array
+    public function get_roles_array()
+    {
+        $results = $this->get_roles();
+        $roles = [];
+
+        foreach ($results as $row) $roles[$row['id']] = $row['role_name'];
+        return $roles;
+    }
+
+    // Checks that there was 5 or more attempts by this same user
+    public function is_locked($email)
+    {
+        // Attempts to get the user details if the email exists in the database.
+        $user = $this->db->select('id')->get_where('tbl_users', ['email' =>$email])->row_array();
+        if ($user != NULL) $user = $user['id'];
+
+        // Look for an attempt in the tbl_login_attempts table.
+        $where = [
+            'user_id'           => $user,
+            'ip_address'        => $this->input->ip_address(),
+            'attempts >='       => $this->max_attempts,
+            'lock >'            => time()
+        ];
+
+        $record = $this->db->select('lock')
+        ->get_where('tbl_login_attempts', $where)
+        ->row_array();
+
+        // If the user's account is locked, we can show them the time they can reattempt.
+        return ($record == NULL) ? FALSE : $record['lock'];
+        // $return ?: FALSE;
+    }
+
     // Writes a login attempt by the user to protect their account.
     private function _attempt($ip_address, $user_id = null)
     {
@@ -128,89 +222,9 @@ class System_model extends CI_Model
 
             // Stops the attempts column from being escaped as a string.
             $this->db->set('attempts', 'attempts + 1', FALSE)
-                     ->set('lock', time() + 60 * $this->lock_minutes)
-                     ->where($where)
-                     ->update('tbl_login_attempts', $where);
+            ->set('lock', time() + 60 * $this->lock_minutes)
+            ->where($where)
+            ->update('tbl_login_attempts', $where);
         }
-    }
-
-    // Checks that there was 5 or more attempts by this same user
-    public function is_locked($email)
-    {
-        // Attempts to get the user details if the email exists in the database.
-        $user = $this->db->select('id')->get_where('tbl_users', ['email' =>$email])->row_array();
-        if ($user != NULL) $user = $user['id'];
-
-        // Look for an attempt in the tbl_login_attempts table.
-        $where = [
-            'user_id'           => $user,
-            'ip_address'        => $this->input->ip_address(),
-            'attempts >='       => $this->max_attempts,
-            'lock >'            => time()
-        ];
-
-        $record = $this->db->select('lock')
-                           ->get_where('tbl_login_attempts', $where)
-                           ->row_array();
-
-        // If the user's account is locked, we can show them the time they can reattempt.
-        return ($record == NULL) ? FALSE : $record['lock'];
-        // $return ?: FALSE;
-    }
-
-    // Confirms that this device has an active session in the database.
-    public function confirm_session()
-    {
-        $where = [
-            'user_id'           => $this->session->userdata('id'),
-            'sess_identifier'   => $this->session->userdata('session_code'),
-            'expiration >'      => time()
-        ];
-
-        return $this->db->get_where('tbl_login_sessions', $where)->num_rows() == 1;
-    }
-
-    // Checks the permissions for a particular role.
-    public function check_permission($name, $role_id = NULL)
-    {
-        // If no role was specified we'll access what's available in the session data.
-        if ($role_id == NULL) $role_id = $this->session->userdata('role');
-
-        // Ensure the $name variable is all uppercase to match the database entry
-        $name = strtoupper($name);
-
-        $perm = $this->db->select('access')
-                         ->get_where('tbl_permissions', ['name' => $name])
-                         ->row_array();
-
-        if ($perm == NULL) return FALSE;
-
-        return (($perm['access'] & $role_id) == $role_id);
-    }
-
-    // Retrieves all the roles from the database to be assigned by the admin.
-    public function get_roles()
-    {
-        return $this->db->get('tbl_roles')->result_array();
-    }
-
-    // Retrieves the roles as an array
-    public function get_roles_array()
-    {
-        $results = $this->get_roles();
-        $roles = [];
-
-        foreach ($results as $row) $roles[$row['id']] = $row['role_name'];
-        return $roles;
-    }
-
-    // Retrieves all the users, and their details
-    public function get_users()
-    {
-        return $this->db->select('tbl_users.email, tbl_user_details.name, tbl_user_details.surname, tbl_roles.role_name')
-                        ->join('tbl_user_details', 'tbl_users.id = tbl_user_details.user_id')
-                        ->join('tbl_roles', 'tbl_users.role_id = tbl_roles.id')
-                        ->get('tbl_users')
-                        ->result_array();
     }
 }

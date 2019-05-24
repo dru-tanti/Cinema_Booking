@@ -34,7 +34,7 @@
                 <h1>Sidebar</h1>
             </div>
 <?php foreach($screenings as $screening): ?>
-               <a class="btn bg-dark btn-secondary btn-sm mx-1" href="<?php echo site_url("home/booking/{$screening['screening_id']}") ?>">
+               <a class="btn bg-dark btn-secondary btn-sm btn-block" href="<?php echo site_url("home/booking/{$screening['screening_id']}") ?>">
                    <h5 class="card-text"><?php echo date("H:i", $screening['time']);?></h5>
                   <h6 class="card-title"><?php echo date("d F Y", $screening['time']);?></h6>
                   <p class="card-text"><?php echo $screening['name']; ?></p>

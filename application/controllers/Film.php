@@ -49,6 +49,7 @@ class Film extends CC_Controller
         $this->build('film/create', $data);
     }
 
+    // Deletes the film from the database.
     public function delete($slug = NULL)
     {
         if(!$film = $this->film_model->get_film($slug))
@@ -69,6 +70,7 @@ class Film extends CC_Controller
         redirect('film');
     }
 
+    // Builds the edit page and passes the information to the _do_edit.
     public function edit($slug = NULL, $submit = FALSE)
     {
         // Check if the film exists, and if it does assign to a variable.
@@ -86,7 +88,7 @@ class Film extends CC_Controller
         // loads the user-agent library to identify platform.
         $this->load->library(['user_agent' => 'ua']);
 
-        $film['text'] = readfile("{$this->text_folder}/{$film['id']}.txt");
+        $film['text'] = "{$this->text_folder}/{$film['id']}.txt";
     	$film['categories'] = $this->film_model->get_film_categories($film['id']);
     	$film['image'] = $this->_get_image_path($film['id']);
 

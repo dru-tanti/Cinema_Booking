@@ -91,4 +91,18 @@ class Users extends CC_Controller
         // 6. Go back to login.
         redirect('users');
     }
+
+    // Deletes a user from the database.
+    public function delete($id = NULL)
+    {
+        if(!$user = $this->system_model->get_user($id))
+        {
+            show_404();
+        }
+
+        // Delete the user and redirect.
+        $this->system_model->delete_user($id);
+        redirect('users');
+    }
+
 }
